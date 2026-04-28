@@ -1,0 +1,157 @@
+<% locals.activePage = 'about' %>
+<%- include('partials/header') %>
+
+<main class="page-main">
+  <div class="page-header">
+    <div class="page-header-icon" style="background: var(--accent-purple);">
+      <i class="fa-solid fa-circle-info"></i>
+    </div>
+    <h1>About This Expert System</h1>
+    <p>Artificial Intelligence Expert System</p>
+  </div>
+
+  <div class="about-container">
+
+    <!-- What is Expert System -->
+    <div class="about-card">
+      <div class="about-card-icon" style="background: var(--accent-blue);">
+        <i class="fa-solid fa-robot"></i>
+      </div>
+      <div class="about-card-body">
+        <h2>What is an Expert System?</h2>
+        <p>
+          An <strong>Expert System</strong> is a computer program that uses Artificial Intelligence (AI) to simulate the decision-making ability of a human expert. It is designed to solve complex problems by reasoning through bodies of knowledge, represented mainly as <em>IF-THEN rules</em>.
+        </p>
+        <p>
+          Expert Systems were one of the first truly successful forms of AI software, developed in the 1970s and widely used in medicine, engineering, finance, and technical support.
+        </p>
+        <div class="info-box">
+          <strong>Real-World Example:</strong> MYCIN (1970s) was a medical expert system that diagnosed bacterial infections and recommended antibiotics — without needing a doctor.
+        </div>
+      </div>
+    </div>
+
+    <!-- Components -->
+    <h2 class="section-title">Components of an Expert System</h2>
+    <div class="components-grid">
+      <div class="component-card">
+        <div class="comp-num">01</div>
+        <i class="fa-solid fa-database comp-icon"></i>
+        <h3>Knowledge Base</h3>
+        <p>Stores all domain-specific knowledge as <strong>facts and rules</strong>. In our system, it contains all possible technical problems and their IF-THEN solutions for each issue category.</p>
+        <div class="code-block">
+          <code>Rule 01: IF issue = internet<br/>AND wifi = disconnected<br/>THEN solution = "Connect WiFi"</code>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="comp-num">02</div>
+        <i class="fa-solid fa-gears comp-icon"></i>
+        <h3>Inference Engine</h3>
+        <p>The <strong>reasoning core</strong> of the expert system. It applies logical rules to the knowledge base and user inputs to derive conclusions (solutions). Uses <em>Forward Chaining</em> strategy.</p>
+        <div class="code-block">
+          <code>if (category === 'internet') {<br/>  if (answers.wifi === 'no') {<br/>    → Connect WiFi Rule<br/>  }<br/>}</code>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="comp-num">03</div>
+        <i class="fa-solid fa-comments comp-icon"></i>
+        <h3>User Interface</h3>
+        <p>Allows non-experts to <strong>interact</strong> with the system. Users select issue categories and answer step-by-step diagnostic questions without needing technical knowledge.</p>
+      </div>
+
+      <div class="component-card">
+        <div class="comp-num">04</div>
+        <i class="fa-solid fa-book comp-icon"></i>
+        <h3>Explanation Facility</h3>
+        <p>The system shows users the <strong>inference path</strong> — which rules were matched based on their answers, making the decision transparent and understandable.</p>
+      </div>
+    </div>
+
+    <!-- How Inference Works -->
+    <div class="about-card">
+      <div class="about-card-icon" style="background: var(--accent-green);">
+        <i class="fa-solid fa-diagram-project"></i>
+      </div>
+      <div class="about-card-body">
+        <h2>How This System Works (Flow)</h2>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-circle">1</div>
+            <div class="flow-content">
+              <strong>User Input</strong>
+              <span>User selects a problem category and answers diagnostic questions</span>
+            </div>
+          </div>
+          <div class="flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+          <div class="flow-step">
+            <div class="flow-circle">2</div>
+            <div class="flow-content">
+              <strong>Pattern Matching</strong>
+              <span>Inference Engine matches user answers against IF conditions in the Knowledge Base</span>
+            </div>
+          </div>
+          <div class="flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+          <div class="flow-step">
+            <div class="flow-circle">3</div>
+            <div class="flow-content">
+              <strong>Rule Firing</strong>
+              <span>Matched rules are "fired" and THEN actions (solutions) are executed</span>
+            </div>
+          </div>
+          <div class="flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+          <div class="flow-step">
+            <div class="flow-circle">4</div>
+            <div class="flow-content">
+              <strong>Solution / Ticket</strong>
+              <span>Expert solutions are displayed. If unresolved, a MongoDB support ticket is generated</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technologies Used -->
+    <h2 class="section-title">Technologies Used</h2>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="tech-icon node"><i class="fa-brands fa-node-js"></i></div>
+        <h4>Node.js</h4>
+        <p>JavaScript runtime for backend server execution</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon express"><i class="fa-solid fa-server"></i></div>
+        <h4>Express.js</h4>
+        <p>Web framework for routing and middleware</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon mongo"><i class="fa-solid fa-leaf"></i></div>
+        <h4>MongoDB</h4>
+        <p>NoSQL database for storing support tickets</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon ejs"><i class="fa-solid fa-code"></i></div>
+        <h4>EJS Templates</h4>
+        <p>Embedded JavaScript for dynamic HTML rendering</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon css"><i class="fa-brands fa-css3-alt"></i></div>
+        <h4>CSS3</h4>
+        <p>Modern responsive styling and animations</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon js"><i class="fa-brands fa-js"></i></div>
+        <h4>JavaScript</h4>
+        <p>IF-THEN Inference Engine logic implementation</p>
+      </div>
+    </div>
+
+    <div class="sppu-badge">
+      <i class="fa-solid fa-graduation-cap"></i>
+      Artificial Intelligence - Expert System Project
+    </div>
+  </div>
+</main>
+
+<%- include('partials/footer') %>

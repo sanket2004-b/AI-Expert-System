@@ -1,0 +1,130 @@
+<% locals.activePage = 'home' %>
+<%- include('partials/header') %>
+
+<!-- ── Hero Section ── -->
+<main>
+  <section class="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-microchip"></i> SPPU TE AI Project — Expert System
+      </div>
+      <h1 class="hero-title">
+        AI Based<br/>
+        <span class="highlight">Help Desk</span><br/>
+        Management System
+      </h1>
+      <p class="hero-subtitle">
+        A Rule-Based Expert System powered by an Inference Engine and Knowledge Base 
+        that intelligently diagnoses and resolves your technical issues — instantly.
+      </p>
+      <div class="hero-actions">
+        <a href="/query" class="btn btn-primary">
+          <i class="fa-solid fa-bolt"></i> Ask a Query
+        </a>
+        <a href="/about" class="btn btn-outline">
+          <i class="fa-solid fa-book-open"></i> Learn More
+        </a>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">6+</span>
+          <span class="stat-label">Issue Categories</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">30+</span>
+          <span class="stat-label">IF-THEN Rules</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">AI Driven</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="ai-card">
+        <div class="ai-card-header">
+          <div class="ai-dot green"></div>
+          <div class="ai-dot yellow"></div>
+          <div class="ai-dot red"></div>
+          <span>Inference Engine</span>
+        </div>
+        <div class="ai-card-body">
+          <div class="rule-line"><span class="kw">IF</span> issue = internet <span class="kw">AND</span> wifi = no</div>
+          <div class="rule-line indent"><span class="kw">THEN</span> → Connect to WiFi</div>
+          <div class="rule-line mt"><span class="kw">IF</span> issue = printer <span class="kw">AND</span> cable = off</div>
+          <div class="rule-line indent"><span class="kw">THEN</span> → Reconnect Cable</div>
+          <div class="rule-line mt"><span class="kw">IF</span> unresolved</div>
+          <div class="rule-line indent"><span class="kw">THEN</span> → Generate Ticket 🎫</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Feature Cards ── -->
+  <section class="features">
+    <h2 class="section-title">How The Expert System Works</h2>
+    <p class="section-sub">Three intelligent layers working together to resolve your issues</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="background: var(--accent-blue);">
+          <i class="fa-solid fa-database"></i>
+        </div>
+        <h3>Knowledge Base</h3>
+        <p>Stores all domain knowledge — rules, facts, and relationships about technical problems and their solutions.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background: var(--accent-purple);">
+          <i class="fa-solid fa-gears"></i>
+        </div>
+        <h3>Inference Engine</h3>
+        <p>The AI brain — applies IF-THEN rules to user inputs and reasons through the knowledge base to reach a solution.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background: var(--accent-green);">
+          <i class="fa-solid fa-lightbulb"></i>
+        </div>
+        <h3>Expert Recommendations</h3>
+        <p>Delivers precise, step-by-step solutions. If unresolved, auto-generates a support ticket with MongoDB storage.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Issue Categories Preview ── -->
+  <section class="categories-preview">
+    <h2 class="section-title">Supported Issue Categories</h2>
+    <div class="cat-grid">
+      <a href="/diagnose/internet" class="cat-card">
+        <i class="fa-solid fa-wifi"></i>
+        <span>Internet Problem</span>
+      </a>
+      <a href="/diagnose/password" class="cat-card">
+        <i class="fa-solid fa-key"></i>
+        <span>Password Reset</span>
+      </a>
+      <a href="/diagnose/printer" class="cat-card">
+        <i class="fa-solid fa-print"></i>
+        <span>Printer Issue</span>
+      </a>
+      <a href="/diagnose/slow-computer" class="cat-card">
+        <i class="fa-solid fa-gauge-high"></i>
+        <span>Slow Computer</span>
+      </a>
+      <a href="/diagnose/software" class="cat-card">
+        <i class="fa-solid fa-floppy-disk"></i>
+        <span>Software Install</span>
+      </a>
+      <a href="/diagnose/email" class="cat-card">
+        <i class="fa-solid fa-envelope"></i>
+        <span>Email Not Working</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>

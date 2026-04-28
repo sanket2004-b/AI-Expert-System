@@ -1,0 +1,58 @@
+<% locals.activePage = 'query' %>
+<%- include('partials/header') %>
+
+<main class="page-main">
+  <div class="confirm-container">
+    <div class="confirm-icon">
+      <i class="fa-solid fa-circle-check"></i>
+    </div>
+    <h1 class="confirm-title">Ticket Generated Successfully!</h1>
+    <p class="confirm-sub">Your support request has been submitted. Our team will respond to your email within 24 hours.</p>
+
+    <div class="ticket-detail-card">
+      <div class="ticket-id-banner">
+        <span class="tid-label">Your Ticket ID</span>
+        <span class="tid-value"><%= ticket.ticketId %></span>
+        <span class="tid-note">Save this ID for future reference</span>
+      </div>
+
+      <div class="ticket-details-grid">
+        <div class="td-item">
+          <span class="td-label"><i class="fa-solid fa-user"></i> Name</span>
+          <span class="td-value"><%= ticket.name %></span>
+        </div>
+        <div class="td-item">
+          <span class="td-label"><i class="fa-solid fa-envelope"></i> Email</span>
+          <span class="td-value"><%= ticket.email %></span>
+        </div>
+        <div class="td-item">
+          <span class="td-label"><i class="fa-solid fa-tag"></i> Category</span>
+          <span class="td-value"><%= ticket.category %></span>
+        </div>
+        <div class="td-item">
+          <span class="td-label"><i class="fa-solid fa-circle-dot"></i> Status</span>
+          <span class="td-value status-badge open"><%= ticket.status %></span>
+        </div>
+        <div class="td-item full-width">
+          <span class="td-label"><i class="fa-solid fa-file-lines"></i> Problem Description</span>
+          <span class="td-value"><%= ticket.problem %></span>
+        </div>
+        <div class="td-item">
+          <span class="td-label"><i class="fa-solid fa-calendar"></i> Date</span>
+          <span class="td-value"><%= new Date(ticket.createdAt).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }) %></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="confirm-actions">
+      <a href="/query" class="btn btn-primary">
+        <i class="fa-solid fa-plus"></i> Submit Another Query
+      </a>
+      <a href="/" class="btn btn-outline">
+        <i class="fa-solid fa-house"></i> Back to Home
+      </a>
+    </div>
+  </div>
+</main>
+
+<%- include('partials/footer') %>

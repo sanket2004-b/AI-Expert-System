@@ -1,0 +1,88 @@
+<% locals.activePage = 'query' %>
+<%- include('partials/header') %>
+
+<main class="page-main">
+  <div class="page-header">
+    <div class="page-header-icon"><i class="fa-solid fa-circle-question"></i></div>
+    <h1>Select Your Issue Category</h1>
+    <p>Choose the type of problem you're experiencing. The Expert System will guide you through a step-by-step diagnosis.</p>
+  </div>
+
+  <div class="query-grid">
+
+    <a href="/diagnose/internet" class="query-card">
+      <div class="qcard-icon wifi">
+        <i class="fa-solid fa-wifi"></i>
+      </div>
+      <div class="qcard-body">
+        <h3>Internet Problem</h3>
+        <p>No connection, slow speeds, WiFi not connecting, DNS issues.</p>
+        <span class="qcard-tag"><i class="fa-solid fa-list-check"></i> 4 Diagnostic Steps</span>
+      </div>
+      <div class="qcard-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+    </a>
+
+    <a href="/diagnose/password" class="query-card">
+      <div class="qcard-icon key">
+        <i class="fa-solid fa-key"></i>
+      </div>
+      <div class="qcard-body">
+        <h3>Password Reset</h3>
+        <p>Forgot password, account locked, cannot receive reset email.</p>
+        <span class="qcard-tag"><i class="fa-solid fa-list-check"></i> 3 Diagnostic Steps</span>
+      </div>
+      <div class="qcard-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+    </a>
+
+    <a href="/diagnose/printer" class="query-card">
+      <div class="qcard-icon print">
+        <i class="fa-solid fa-print"></i>
+      </div>
+      <div class="qcard-body">
+        <h3>Printer Issue</h3>
+        <p>Printer not detected, paper jam, driver missing, not printing.</p>
+        <span class="qcard-tag"><i class="fa-solid fa-list-check"></i> 4 Diagnostic Steps</span>
+      </div>
+      <div class="qcard-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+    </a>
+
+    <a href="/diagnose/slow-computer" class="query-card">
+      <div class="qcard-icon slow">
+        <i class="fa-solid fa-gauge-high"></i>
+      </div>
+      <div class="qcard-body">
+        <h3>Slow Computer</h3>
+        <p>PC running slowly, high CPU, full disk, too many startup apps.</p>
+        <span class="qcard-tag"><i class="fa-solid fa-list-check"></i> 4 Diagnostic Steps</span>
+      </div>
+      <div class="qcard-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+    </a>
+
+    <a href="/diagnose/software" class="query-card">
+      <div class="qcard-icon soft">
+        <i class="fa-solid fa-floppy-disk"></i>
+      </div>
+      <div class="qcard-body">
+        <h3>Software Installation</h3>
+        <p>Installation failed, compatibility issues, admin permissions needed.</p>
+        <span class="qcard-tag"><i class="fa-solid fa-list-check"></i> 4 Diagnostic Steps</span>
+      </div>
+      <div class="qcard-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+    </a>
+
+    <a href="/diagnose/email" class="query-card">
+      <div class="qcard-icon mail">
+        <i class="fa-solid fa-envelope"></i>
+      </div>
+      <div class="qcard-body">
+        <h3>Email Not Working</h3>
+        <p>Cannot login, sending/receiving issues, mailbox full, config errors.</p>
+        <span class="qcard-tag"><i class="fa-solid fa-list-check"></i> 4 Diagnostic Steps</span>
+      </div>
+      <div class="qcard-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+    </a>
+
+  </div>
+</main>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,167 @@
+<% locals.activePage = 'query' %>
+<%- include('partials/header') %>
+
+<%
+// ── Category Display Names & Icons ──
+const categoryInfo = {
+  'internet':      { label: 'Internet Problem',       icon: 'fa-wifi',        color: 'wifi'  },
+  'password':      { label: 'Password Reset',          icon: 'fa-key',         color: 'key'   },
+  'printer':       { label: 'Printer Issue',           icon: 'fa-print',       color: 'print' },
+  'slow-computer': { label: 'Slow Computer',           icon: 'fa-gauge-high',  color: 'slow'  },
+  'software':      { label: 'Software Installation',  icon: 'fa-floppy-disk', color: 'soft'  },
+  'email':         { label: 'Email Not Working',       icon: 'fa-envelope',    color: 'mail'  }
+};
+
+// ── Questions per Category ──
+const questionSets = {
+  'internet': [
+    { name: 'wifi',    question: 'Is your WiFi connected?',                        options: ['yes','no']                          },
+    { name: 'router',  question: 'Is the router powered on and lights are normal?', options: ['yes','no']                          },
+    { name: 'cable',   question: 'Is the LAN cable properly connected?',            options: ['connected','disconnected','no-cable'] },
+    { name: 'browser', question: 'Does the issue happen only in the browser?',      options: ['yes','no']                          }
+  ],
+  'password': [
+    { name: 'forgotten',     question: 'Have you forgotten your password?',              options: ['yes','no']  },
+    { name: 'locked',        question: 'Is your account locked or showing an error?',    options: ['yes','no']  },
+    { name: 'email_access',  question: 'Can you access your recovery email?',            options: ['yes','no']  }
+  ],
+  'printer': [
+    { name: 'power',  question: 'Is the printer powered ON?',                options: ['yes','no']                     },
+    { name: 'cable',  question: 'Is the USB/LAN cable connected to printer?', options: ['connected','disconnected']     },
+    { name: 'paper',  question: 'Is there a paper jam inside the printer?',   options: ['yes','no']                     },
+    { name: 'driver', question: 'Is the printer driver installed?',           options: ['yes','no','not-sure']          }
+  ],
+  'slow-computer': [
+    { name: 'startup', question: 'Does the computer take very long to start?',  options: ['yes','no']  },
+    { name: 'storage', question: 'Is the C: drive storage almost full?',        options: ['yes','no']  },
+    { name: 'ram',     question: 'Are many applications open simultaneously?',  options: ['yes','no']  },
+    { name: 'virus',   question: 'Do you suspect a virus/malware infection?',   options: ['yes','no']  }
+  ],
+  'software': [
+    { name: 'admin',      question: 'Are you running the installer as Administrator?', options: ['yes','no']       },
+    { name: 'space',      question: 'Is there sufficient disk space available?',        options: ['yes','no']       },
+    { name: 'compatible', question: 'Is the software compatible with your OS?',        options: ['yes','no','not-sure'] },
+    { name: 'antivirus',  question: 'Is antivirus software active and blocking it?',   options: ['yes','no']       }
+  ],
+  'email': [
+    { name: 'login',   question: 'Can you log into your email account?',       options: ['yes','no']  },
+    { name: 'sending', question: 'Are you able to send emails?',                options: ['yes','no']  },
+    { name: 'storage', question: 'Is your mailbox full or near storage limit?', options: ['yes','no']  },
+    { name: 'config',  question: 'Are the email client settings configured?',   options: ['yes','no']  }
+  ]
+};
+
+const info = categoryInfo[category];
+const questions = questionSets[category];
+%>
+
+<main class="page-main">
+  <div class="page-header">
+    <div class="page-header-icon <%= info.color %>">
+      <i class="fa-solid <%= info.icon %>"></i>
+    </div>
+    <h1>Diagnosing: <%= info.label %></h1>
+    <p>Answer the following questions. The Inference Engine will analyze your responses and suggest a solution.</p>
+  </div>
+
+  <div class="diagnose-container">
+    <!-- Progress Bar -->
+    <div class="progress-bar-wrap">
+      <div class="progress-label">
+        <span>Step <span id="currentStep">1</span> of <%= questions.length %></span>
+        <span id="progressPct">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- Diagnosis Form -->
+    <form action="/diagnose" method="POST" id="diagnoseForm">
+      <input type="hidden" name="category" value="<%= category %>" />
+
+      <% questions.forEach((q, idx) => { %>
+        <div class="question-step" id="step-<%= idx %>" style="display: <%= idx === 0 ? 'block' : 'none' %>">
+          <div class="question-card">
+            <div class="question-num">Question <%= idx + 1 %></div>
+            <h2 class="question-text">
+              <i class="fa-solid fa-circle-question"></i> <%= q.question %>
+            </h2>
+            <div class="options-grid">
+              <% q.options.forEach(opt => { %>
+                <label class="option-label">
+                  <input type="radio" name="<%= q.name %>" value="<%= opt %>" required />
+                  <span class="option-btn">
+                    <i class="fa-solid fa-circle-dot"></i>
+                    <%= opt.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) %>
+                  </span>
+                </label>
+              <% }) %>
+            </div>
+          </div>
+
+          <div class="step-actions">
+            <% if (idx > 0) { %>
+              <button type="button" class="btn btn-outline" onclick="goStep(<%= idx-1 %>, <%= questions.length %>)">
+                <i class="fa-solid fa-arrow-left"></i> Previous
+              </button>
+            <% } else { %>
+              <a href="/query" class="btn btn-outline">
+                <i class="fa-solid fa-arrow-left"></i> Back
+              </a>
+            <% } %>
+
+            <% if (idx < questions.length - 1) { %>
+              <button type="button" class="btn btn-primary" onclick="goStep(<%= idx+1 %>, <%= questions.length %>)">
+                Next <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            <% } else { %>
+              <button type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-brain"></i> Analyze & Get Solution
+              </button>
+            <% } %>
+          </div>
+        </div>
+      <% }) %>
+    </form>
+
+    <!-- AI Note -->
+    <div class="ai-note">
+      <i class="fa-solid fa-robot"></i>
+      <strong>Expert System:</strong> Your answers are being processed by the Inference Engine using IF-THEN rules from the Knowledge Base.
+    </div>
+  </div>
+</main>
+
+<script>
+// Step navigation logic
+let currentActive = 0;
+
+function goStep(targetIdx, total) {
+  // Validate current step has a selection
+  const currentStepEl = document.getElementById('step-' + currentActive);
+  const radios = currentStepEl.querySelectorAll('input[type="radio"]');
+  const anyChecked = Array.from(radios).some(r => r.checked);
+
+  if (!anyChecked && targetIdx > currentActive) {
+    // Highlight that selection is needed
+    currentStepEl.querySelector('.question-card').classList.add('shake');
+    setTimeout(() => currentStepEl.querySelector('.question-card').classList.remove('shake'), 500);
+    return;
+  }
+
+  // Hide current step
+  document.getElementById('step-' + currentActive).style.display = 'none';
+  // Show target step
+  document.getElementById('step-' + targetIdx).style.display = 'block';
+  currentActive = targetIdx;
+
+  // Update progress bar
+  const pct = Math.round(((targetIdx) / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('currentStep').textContent = targetIdx + 1;
+}
+</script>
+
+<%- include('partials/footer') %>

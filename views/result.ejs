@@ -1,0 +1,111 @@
+<% locals.activePage = 'query' %>
+<%- include('partials/header') %>
+
+<%
+const labelMap = {
+  'internet': 'Internet Problem', 'password': 'Password Reset',
+  'printer': 'Printer Issue', 'slow-computer': 'Slow Computer',
+  'software': 'Software Installation', 'email': 'Email Not Working'
+};
+%>
+
+<main class="page-main">
+  <div class="page-header">
+    <div class="page-header-icon" style="background: var(--accent-green);">
+      <i class="fa-solid fa-brain"></i>
+    </div>
+    <h1>Expert System Analysis</h1>
+    <p>Category: <strong><%= labelMap[category] || category %></strong> — Inference Engine has processed your answers.</p>
+  </div>
+
+  <div class="result-container">
+
+    <!-- Solutions Section -->
+    <% if (result.solutions && result.solutions.length > 0) { %>
+      <div class="result-card resolved">
+        <div class="result-card-header">
+          <i class="fa-solid fa-lightbulb"></i>
+          <h2>Recommended Solutions</h2>
+          <span class="badge badge-green">AI Generated</span>
+        </div>
+        <div class="solutions-list">
+          <% result.solutions.forEach((sol, i) => { %>
+            <div class="solution-item">
+              <div class="sol-num"><%= i + 1 %></div>
+              <div class="sol-text"><%= sol %></div>
+            </div>
+          <% }) %>
+        </div>
+        <div class="result-note">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          Try these solutions in order. If your issue is resolved, no further action is needed.
+        </div>
+      </div>
+    <% } %>
+
+    <!-- Inference Path - Answers Summary -->
+    <div class="inference-summary">
+      <h3><i class="fa-solid fa-gears"></i> Inference Engine — Rule Path Taken</h3>
+      <p class="inf-sub">These are the IF conditions matched based on your answers:</p>
+      <div class="answers-grid">
+        <% Object.entries(answers).forEach(([key, val]) => { %>
+          <div class="answer-chip">
+            <span class="chip-key"><%= key.replace(/_/g, ' ') %></span>
+            <span class="chip-arrow">→</span>
+            <span class="chip-val <%= val === 'yes' || val === 'connected' ? 'val-yes' : 'val-no' %>">
+              <%= val %>
+            </span>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <!-- Ticket Generation (if unresolved) -->
+    <div class="ticket-section">
+      <div class="ticket-header">
+        <i class="fa-solid fa-ticket"></i>
+        <div>
+          <h3>Still Not Resolved? Generate a Support Ticket</h3>
+          <p>Our support team will contact you with a personalized solution.</p>
+        </div>
+      </div>
+
+      <form action="/ticket" method="POST" class="ticket-form" id="ticketForm">
+        <input type="hidden" name="category" value="<%= labelMap[category] || category %>" />
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name"><i class="fa-solid fa-user"></i> Full Name *</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+          </div>
+          <div class="form-group">
+            <label for="email"><i class="fa-solid fa-envelope"></i> Email Address *</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="problem"><i class="fa-solid fa-file-lines"></i> Describe Your Problem *</label>
+          <textarea id="problem" name="problem" rows="4"
+            placeholder="Describe your issue in detail so our expert team can assist you better..."
+            required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg">
+          <i class="fa-solid fa-paper-plane"></i> Generate Support Ticket
+        </button>
+      </form>
+    </div>
+
+    <div class="result-actions">
+      <a href="/query" class="btn btn-outline">
+        <i class="fa-solid fa-rotate-left"></i> Start Over
+      </a>
+      <a href="/" class="btn btn-outline">
+        <i class="fa-solid fa-house"></i> Home
+      </a>
+    </div>
+  </div>
+</main>
+
+<%- include('partials/footer') %>
